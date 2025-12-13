@@ -1,0 +1,23 @@
+{
+  "name": "envx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node src/index.js"
+  },
+  "bin": {
+    "envx": "src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^14.0.2",
+    "dotenv": "^17.2.3",
+    "execa": "^9.6.1",
+    "fs-extra": "^11.3.2"
+  },
+  "description": ""
+}
