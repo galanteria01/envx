@@ -1,23 +1,50 @@
 {
-  "name": "envx",
+  "name": "@galanteria01/envx",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A safe environment variable manager that prevents secret leaks by storing environment variables outside your repository",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.js",
-    "dev": "node src/index.js"
+    "build": "bun scripts/build.js",
+    "dev": "bun src/index.js",
+    "prepublishOnly": "bun run build"
   },
   "bin": {
-    "envx": "src/index.js"
+    "envx": "dist/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "environment",
+    "variables",
+    "env",
+    "secrets",
+    "security",
+    "git-safe",
+    "cli",
+    "dotenv",
+    "config"
+  ],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/galanteria01/envx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/galanteria01/envx/issues"
+  },
+  "homepage": "https://github.com/galanteria01/envx#readme",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
   "dependencies": {
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "execa": "^9.6.1",
     "fs-extra": "^11.3.2"
-  },
-  "description": ""
+  }
 }
