@@ -7,7 +7,7 @@ export function loadSecrets(project, env) {
 
   if (!fs.existsSync(secretPath)) {
     throw new Error(
-      `❌ Secrets not found at ${secretPath}\nCreate it before running.`
+      `❌ Secrets not found at ${secretPath}\nRun \`envx init\` or create this file manually.`
     );
   }
 
@@ -16,7 +16,3 @@ export function loadSecrets(project, env) {
 
   return parsed;
 }
-
-
-
-

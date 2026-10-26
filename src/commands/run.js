@@ -4,18 +4,27 @@ import { loadSecrets } from "../core/secrets.js";
 import { assertNoTrackedEnv } from "../core/git.js";
 import os from "os";
 
-export async function runCommand(cmd) {
+export async function runCommand(cmd, options = {}) {
   assertNoTrackedEnv();
 
   const { project, env } = loadEnvRef();
-  const secrets = loadSecrets(project, env);
+  const resolvedEnv = options.env || env;
+  const secrets = loadSecrets(project, resolvedEnv);
 
   const command = cmd.join(" ");
-  const shell = process.env.SHELL || (os.platform() === "win32" ? "cmd.exe" : "/bin/sh");
+  const isWin = os.platform() === "win32";
+  const shell = process.env.SHELL || (isWin ? "cmd.exe" : "/bin/sh");
+  const shellFlag = isWin ? "/c" : "-c";
 
-  console.log(`🚀 Running with envx (${project}:${env})`);
+  console.log(`🚀 Running with envx (${project}:${resolvedEnv})`);
 
-  await execa(shell, ["-c", command], {
+  if (options.dryRun) {
+    console.log("[Dry Run]");
+    console.log("SECRETS:", Object.keys(secrets).join(", "));
+    process.exit(0);
+  }
+
+  await execa(shell, [shellFlag, command], {
     stdio: "inherit",
     env: {
       ...process.env,
@@ -23,4 +32,3 @@ export async function runCommand(cmd) {
     }
   });
 }
-
